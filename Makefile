@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: CC-BY-NC-ND-4.0
 
 BOOK ?= chasing-carnot
+COPYRIGHT_HOLDER ?= $(if $(filter guard-small-models,$(BOOK)),杨东冬,陈天)
 DIST ?= dist
 REPO ?= tyrchen/open-books
 PDF := $(DIST)/$(BOOK).pdf
@@ -23,7 +24,7 @@ pdf:
 		'    #v(0.8cm)' \
 		'    #block(width: 80%)[' \
 		'      #align(left)[' \
-		'        © 2026 陈天。' \
+		'        © 2026 $(COPYRIGHT_HOLDER)。' \
 		'' \
 		'        本书及本仓库中的代码、图像、排版模板与其他资料采用 #link("https://creativecommons.org/licenses/by-nc-nd/4.0/")[Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International]（CC BY-NC-ND 4.0）许可协议发布，除非文件中另有明确说明。' \
 		'' \

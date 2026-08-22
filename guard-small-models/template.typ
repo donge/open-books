@@ -464,8 +464,12 @@
         show heading: set text(font: heading-font, fill: bk-near-black)
         show heading.where(level: 1): it => {}
         show heading.where(level: 2): it => {
-            pagebreak(weak: true)
-            place(hide(it))
+            v(0.7cm)
+            grid(columns: (3pt, 1fr), column-gutter: 8pt,
+                rect(width: 3pt, height: 18pt, fill: bk-brand, radius: 1pt),
+                text(size: 17pt, weight: "bold", fill: bk-near-black)[#it.body],
+            )
+            v(0.3cm)
         }
         show heading.where(level: 3): it => {
             v(0.7cm)
@@ -489,7 +493,7 @@
         }
         show raw.where(block: false): it => { text(font: code-font, size: 8.5pt, fill: bk-dark-warm, it) }
 
-        show table: it => block(breakable: false, it)
+        show table: it => block(breakable: true, it)
 
         set enum(indent: 1.5em)
         set list(indent: 1.5em)
@@ -532,8 +536,12 @@
         show heading: set text(font: heading-font, fill: bk-near-black)
         show heading.where(level: 1): it => {}
         show heading.where(level: 2): it => {
-            pagebreak(weak: true)
-            place(hide(it))
+            v(0.7cm)
+            grid(columns: (3pt, 1fr), column-gutter: 8pt,
+                rect(width: 3pt, height: 18pt, fill: bk-brand, radius: 1pt),
+                text(size: 17pt, weight: "bold", fill: bk-near-black)[#it.body],
+            )
+            v(0.3cm)
         }
         show heading.where(level: 3): it => {
             v(0.7cm)
@@ -556,7 +564,7 @@
         }
         show raw.where(block: false): it => { text(font: code-font, size: 8.5pt, fill: bk-dark-warm, it) }
 
-        show table: it => block(breakable: false, it)
+        show table: it => block(breakable: true, it)
 
         set enum(indent: 2em)
         set list(indent: 2em)
