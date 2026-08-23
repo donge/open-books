@@ -109,6 +109,16 @@
         // slightly right of level 2 chapters. Levels 1 and 2 compensate with
         // negative margin to reach their intended positions.
         #let h3-indent = toc-indent + 0.5em
+        #let toc-sections = (
+            [风险与载体], [风险与控制], [风险度量], [防御体系总览],
+            [文本表征], [分数、概率与阈值], [Attention 与风险信号], [样本的计算旅程], [中文安全难题],
+            [分组切分与防泄露], [LOO 泛化评测], [标注规范], [数据管道], [难例挖掘],
+            [选型原则], [训练手账], [集成与测试集泄漏], [实验总表], [部署检查],
+            [大模型厂商护栏], [云与安全厂商], [推理与开源组件], [方案选型表],
+            [安全基准的任务边界], [用 Bench 改进 SmallGuard], [自建回归评测集], [红队演练], [持续评测],
+            [在线检测主路], [灰区与解释], [灰度发布], [团队分工], [持续更新],
+            [从评测到认证], [演进路线], [Agent 安全], [供应链安全],
+        )
 
         // Level 1: Part titles — bold, full-width (compensate outer pad)
         #show outline.entry.where(level: 1): it => {
@@ -140,7 +150,7 @@
                     ]
                     #v(0.15em)
                 ]
-            } else {
+            } else if toc-sections.contains(el.body) {
                 // Regular chapter article — at toc-indent (compensate partial)
                 pad(left: toc-indent - h3-indent)[
                     #v(0.1em)
@@ -169,7 +179,7 @@
         #pad(left: h3-indent)[
             // Keep the printed TOC chapter-level only. The PDF bookmarks still
             // retain lower-level navigation, while the book TOC stays concise.
-            #outline(title: none, indent: 0pt, depth: 1)
+            #outline(title: none, indent: 0pt, depth: 2)
         ]
         #state("toc-mode").update(false)
     ]
@@ -464,9 +474,7 @@
         // text, mirroring kami's section-title signature move.
         show heading: set par(first-line-indent: 0pt)
         show heading: set text(font: heading-font, fill: bk-near-black)
-        // Every top-level chapter/appendix begins on a fresh page. `weak` avoids
-        // producing a blank page when the preceding construct already broke.
-        show heading.where(level: 1): it => { pagebreak(weak: true) }
+        show heading.where(level: 1): it => {}
         show heading.where(level: 2): it => {
             v(0.7cm)
             grid(columns: (3pt, 1fr), column-gutter: 8pt,
