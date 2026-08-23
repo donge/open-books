@@ -167,7 +167,9 @@
         }
 
         #pad(left: h3-indent)[
-            #outline(title: none, indent: 0pt, depth: 3)
+            // Keep the printed TOC chapter-level only. The PDF bookmarks still
+            // retain lower-level navigation, while the book TOC stays concise.
+            #outline(title: none, indent: 0pt, depth: 1)
         ]
         #state("toc-mode").update(false)
     ]
@@ -462,7 +464,9 @@
         // text, mirroring kami's section-title signature move.
         show heading: set par(first-line-indent: 0pt)
         show heading: set text(font: heading-font, fill: bk-near-black)
-        show heading.where(level: 1): it => {}
+        // Every top-level chapter/appendix begins on a fresh page. `weak` avoids
+        // producing a blank page when the preceding construct already broke.
+        show heading.where(level: 1): it => { pagebreak(weak: true) }
         show heading.where(level: 2): it => {
             v(0.7cm)
             grid(columns: (3pt, 1fr), column-gutter: 8pt,
@@ -472,12 +476,11 @@
             v(0.3cm)
         }
         show heading.where(level: 3): it => {
-            v(0.7cm)
-            grid(columns: (3pt, 1fr), column-gutter: 8pt,
-                rect(width: 3pt, height: 16pt, fill: bk-brand, radius: 1pt),
-                text(size: 16pt, weight: "bold", fill: bk-near-black)[#it.body],
-            )
-            v(0.3cm)
+            // Short subsections read as paragraph lead-ins rather than another
+            // visual heading tier.
+            v(0.35cm)
+            text(size: 11.5pt, weight: "bold", fill: bk-dark-warm)[#it.body]
+            v(0.08cm)
         }
         show heading.where(level: 4): it => {
             v(0.5cm)
